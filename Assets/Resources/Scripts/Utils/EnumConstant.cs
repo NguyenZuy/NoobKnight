@@ -8,6 +8,7 @@ namespace NoobKnight.Utils
 
     public enum PopupNames
     {
-        AuthenticatePopup = 0,
+        IntroPopup = 0,
+        AuthenticatePopup = 1,
     }
 }

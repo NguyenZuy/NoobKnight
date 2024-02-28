@@ -1,0 +1,16 @@
+{
+    "name": "NoobKnight.Entities",
+    "rootNamespace": "NoobKnight.Entities",
+    "references": [
+        "GUID:25ab73e5e772c43669ee57183c7e8e62"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

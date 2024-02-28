@@ -2,24 +2,41 @@ using Nakama;
 using System.Threading.Tasks;
 using UnityEngine;
 using NoobKnight.Managers;
+using Nakama.TinyJson;
 
 namespace NoobKnight.Managers.Nakama
 {
-    public class ServerHandler : MonoBehaviour
+    public class ServerHandler
     {
         public static readonly NetworkManager NetworkManager = GameManager.Instance.NetworkManager;
 
-        public async Task<bool> AuthenticateEmail(string email, string password)
+        public async Task<IApiAccount> AuthenticateDeviceId()
         {
             try
             {
-                NetworkManager.session = await NetworkManager.client.AuthenticateEmailAsync(email, password);
-                return true;
+                NetworkManager.session = await NetworkManager.client.AuthenticateDeviceAsync(System.Guid.NewGuid().ToString());
+                var account = await NetworkManager.client.GetAccountAsync(NetworkManager.session);
+                return account;
             }
             catch (ApiResponseException ex)
             {
                 Debug.LogFormat("Error authenticating with Email: {0}", ex.Message);
-                return false;
+                return null;
+            }
+        }
+
+        public async Task<IApiAccount> AuthenticateEmail(string email, string password, bool isRegister = false)
+        {
+            try
+            {
+                NetworkManager.session = await NetworkManager.client.AuthenticateEmailAsync(email, password, "", isRegister);
+                var account = await NetworkManager.client.GetAccountAsync(NetworkManager.session);
+                return account;
+            }
+            catch (ApiResponseException ex)
+            {
+                Debug.LogFormat("Error authenticating with Email: {0}", ex.Message);
+                return null;
             }
         }
     }

@@ -19,6 +19,7 @@ namespace NoobKnight.Managers
         [HorizontalLine("Managers & Internal Objects")]
         [ForceFill] public NetworkManager NetworkManager;
         [ForceFill] public SceneManager SceneManager;
+        [ForceFill] public UIManager UIManager;
 
         public GameObject[] objs;
 
