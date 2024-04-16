@@ -1,7 +1,8 @@
 using Nakama;
 
-namespace NoobKnight.Entities {
-    public class PlayerData : IApiUser
+namespace NoobKnight.Entities 
+{
+    public class PlayerAuthenticateData : IApiUser
     {
         public string CreateTime => throw new System.NotImplementedException();
         public string DisplayName => throw new System.NotImplementedException();

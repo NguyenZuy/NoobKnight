@@ -1,10 +1,12 @@
-using Nakama;
 using NoobKnight.Entities;
+using NoobKnight.Utils;
 
 namespace NoobKnight.Managers
 {
-    public class PlayerDataManager
+    public class PlayerDataManager : BaseSingleton<PlayerDataManager>
     {
-        private PlayerData playerData;
+        #region Variables
+        public PlayerAuthenticateData playerAuthenticateData = new PlayerAuthenticateData();
+        #endregion
     }
 }

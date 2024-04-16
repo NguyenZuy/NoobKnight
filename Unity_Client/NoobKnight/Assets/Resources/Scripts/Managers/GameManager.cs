@@ -1,21 +1,12 @@
 using CustomInspector;
+using NoobKnight.Utils;
 using UnityEngine;
 
 namespace NoobKnight.Managers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : BaseSingleton<GameManager>
     {
         #region Variables
-        private static GameManager _instance;
-        public static GameManager Instance
-        {
-            get
-            {
-                if (_instance == null) _instance = new GameManager();
-                return _instance;
-            }
-        }
-
         [HorizontalLine("Managers & Internal Objects")]
         [ForceFill] public NetworkManager NetworkManager;
         [ForceFill] public SceneManager SceneManager;
@@ -25,15 +16,15 @@ namespace NoobKnight.Managers
 
         #endregion
 
-        #region Unity Lifecycle Methods
-        private void Awake()
+        #region Inheritance Methods
+        protected override void Awake()
         {
-            if (_instance == null) _instance = this;
-            else Destroy(this.gameObject);
-
+            base.Awake();
             foreach (var obj in objs) DontDestroyOnLoad(obj);
         }
+        #endregion
 
+        #region Unity Lifecycle Methods
         private void Start()
         {
             NetworkManager.ConnectToServer();

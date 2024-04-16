@@ -1,41 +1,69 @@
+using Nakama;
 using UnityEngine;
-using MagicTween;
+using NoobKnight.Utils;
+using NoobKnight.Managers.Nakama;
 using CustomInspector;
-using System.Linq;
-using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using NoobKnight.Entities;
 
 public class Test : MonoBehaviour
 {
-    [Button(nameof(TestTween1))]
-    [Button(nameof(TestTween2))]
-    public float duration;
+    #region Variables
+    public IClient client;
+    public ISession session;
+    public ISocket socket;
 
-    public GameObject obj;
+    [ForceFill] public NakamaConnection nakamaConnection;
 
-    public void TestTween1()
+    [HideInInspector] public ServerHandler serverHandler;
+
+    #endregion
+
+    public void ConnectToServer()
     {
-        Sequence sequence = Sequence.Create();
+        client = new Client(nakamaConnection.scheme, nakamaConnection.host, nakamaConnection.port, nakamaConnection.serverKey, UnityWebRequestAdapter.Instance);
+        Debug.Log(LOG_TYPE.NAKAMA + "Connected to Nakama Server");
 
-        Tween tween1 = obj.GetComponent<CanvasGroup>().TweenAlpha(0f, duration);
-        Tween tween2 = obj.transform.TweenLocalScale(Vector3.zero, duration);
-
-        sequence.Join(tween1);
-        sequence.Join(tween2);
-
-        sequence.Play();
+        serverHandler = new ServerHandler();
     }
 
-    public void TestTween2()
+    private async void Start()
     {
-        Sequence sequence = Sequence.Create();
+        ConnectToServer();
+        session = await client.AuthenticateDeviceAsync(SystemInfo.deviceUniqueIdentifier);
+        Debug.Log(session);
+        Debug.Log(session.AuthToken); // raw JWT token
+        Debug.LogFormat("Session user id: '{0}'", session.UserId);
+        Debug.LogFormat("Session user username: '{0}'", session.Username);
+        Debug.LogFormat("Session has expired: {0}", session.IsExpired);
+        Debug.LogFormat("Session expires at: {0}", session.ExpireTime); // in seconds.
 
-        Tween tween1 = obj.GetComponent<CanvasGroup>().TweenAlpha(1f, duration);
-        Tween tween2 = obj.transform.TweenLocalScale(Vector3.one, duration);
+        socket = client.NewSocket();
+        socket.Connected += () => Debug.Log("Socket connected.");
+        socket.Closed += () => Debug.Log("Socket closed.");
+        await socket.ConnectAsync(session);
 
-        sequence.Join(tween1);
-        sequence.Join(tween2);
+        IApiMatchList matches = await client.ListMatchesAsync(session, 0, 100, 10, true, "", "");
+        Debug.Log(matches);
 
-        sequence.Play();
+        var matchList = new List<IApiMatch>();
+        foreach (var mat in matches.Matches)
+        {
+            matchList.Add(mat);
+        }
+
+        var metadata = new Dictionary<string, string>
+        {
+            { "data", "dit me may" }
+        };
+
+        IMatch match = await socket.JoinMatchAsync(matchList[0].MatchId, metadata);
+        string matchInfo = match.Label;
+        var matchModel = JsonConvert.DeserializeObject<Match>(matchInfo);
+
+        Debug.Log("Joined match: " + match);
+        Debug.Log("Match's label: " + match.Label);
+        Debug.Log("Match model: " + matchModel);
     }
 }
