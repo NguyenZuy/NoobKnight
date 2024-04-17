@@ -3,121 +3,123 @@ using NoobKnight.Utils;
 using CustomInspector;
 using NoobKnight.Managers.Popups;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 namespace NoobKnight.Managers
 {
     public class UIManager : MonoBehaviour
     {
         #region Variables
-        [HorizontalLine("Attributes")]
+        [HorizontalLine("Components")]
         [ForceFill] public GameObject popupsContainer;
         [ForceFill] public GameObject loadingCircle;
         [ForceFill] public GameObject messageBox;
-        
-        [SerializeField, ReadOnly] [Dictionary] private SerializableDictionary<string, Popup> popupsDict = new SerializableDictionary<string, Popup>();
 
-        [ReadOnly] public Popup previousPopup;
-        [ReadOnly] public Popup currentPopup;
+        private Dictionary<string, Popup> popupsDict = new Dictionary<string, Popup>();
+
+        public Popup PreviousPopup { get; private set; }
+        public Popup CurrentPopup { get; private set; }
         #endregion
 
+        #region Unity Lifecycle Methods
         private void Start()
         {
-            try
-            {
-                foreach (Transform child in popupsContainer.transform)
-                {
-                    popupsDict.Add(child.name, child.GetComponent<Popup>());
-                    if (child.name == PopupNames.IntroPopup.ToString())
-                    {
-                        currentPopup = child.GetComponent<Popup>();
-                        continue;
-                    }
-                    child.GetComponent<CanvasGroup>().alpha = 0f;
-                    child.transform.localScale = Vector3.zero;
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("An error occurred while adding popups to the dictionary: " + e.Message);
-            }
-
-            messageBox.GetComponent<CanvasGroup>().alpha = 0f;
-            messageBox.transform.localScale = Vector3.zero;
+            InitializePopups();
+            InitializeMessageBox();
         }
+        #endregion
 
         #region Popups Methods
+        private void InitializePopups()
+        {
+            foreach (Transform child in popupsContainer.transform)
+            {
+                var popup = child.GetComponent<Popup>();
+                if (popup == null) continue; // Skip if Popup component is missing
+
+                popupsDict[child.name] = popup; // Use assignment for add or update
+
+                if (child.name == PopupNames.IntroPopup.ToString())
+                {
+                    CurrentPopup = popup;
+                    continue;
+                }
+
+                SetPopupVisibility(popup, false);
+            }
+        }
+
+        private void SetPopupVisibility(Popup popup, bool isVisible)
+        {
+            var canvasGroup = popup.GetComponent<CanvasGroup>();
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = isVisible ? 1f : 0f;
+                popup.transform.localScale = isVisible ? Vector3.one : Vector3.zero;
+            }
+        }
+
         public void ShowPopup(PopupNames popupName, object parameter = null)
         {
-            var popup = GetPopup(popupName);
-            popup.transform.SetSiblingIndex(popupsContainer.transform.childCount - 1);
-            popup.Show();
+            if (!popupsDict.TryGetValue(popupName.ToString(), out var popup)) return;
 
-            if (previousPopup != null)
-                if (!previousPopup.canBack)
-                {
-                    HidePopup(previousPopup);
-                    previousPopup = null;
-                }
-            if (currentPopup != null)
+            popup.transform.SetAsLastSibling();
+            SetPopupVisibility(popup, true);
+
+            if (PreviousPopup != null && !PreviousPopup.canBack)
             {
-                if (!currentPopup.canBack) HidePopup(currentPopup);
-                else previousPopup = currentPopup;
+                SetPopupVisibility(PreviousPopup, false);
+                PreviousPopup = null;
             }
-            currentPopup = popup;
+
+            if (CurrentPopup != null)
+            {
+                if (!CurrentPopup.canBack) SetPopupVisibility(CurrentPopup, false);
+                else PreviousPopup = CurrentPopup;
+            }
+
+            CurrentPopup = popup;
         }
 
         public void HidePopup(PopupNames popupName)
         {
-            var popup = GetPopup(popupName);
-            popup.Hide();
+            if (!popupsDict.TryGetValue(popupName.ToString(), out var popup)) return;
 
-            if(previousPopup != null)
+            SetPopupVisibility(popup, false);
+
+            if (PreviousPopup != null)
             {
-                currentPopup = previousPopup;
-                previousPopup = null;
+                CurrentPopup = PreviousPopup;
+                PreviousPopup = null;
             }
         }
 
         public void HidePopup(Popup popup)
         {
-            popup.Hide();
-        }
-
-        public Popup GetPopup(PopupNames popupName)
-        {
-            // Convert the PopupNames enumeration to a string
-            string popupKey = popupName.ToString();
-
-            // Check if the key exists in the dictionary
-            if (popupsDict.TryGetValue(popupKey, out Popup popup))
-            {
-                return popup;
-            }
-            else
-            {
-                // Handle the case when the specified popup name is not found
-                Debug.LogError("Popup with name " + popupKey + " not found.");
-                return null;
-            }
+            SetPopupVisibility(popup, false);
         }
         #endregion
 
         #region Loading Methods
-        public void ShowLoadingCircle()
-        {
-            loadingCircle.SetActive(true);
-        }
+        public void ShowLoadingCircle() => loadingCircle.SetActive(true);
 
-        public void HideLoadingCircle()
-        {
-            loadingCircle.SetActive(false);
-        }
+        public void HideLoadingCircle() => loadingCircle.SetActive(false);
         #endregion
 
         #region Message Box Methods
+
+        private void InitializeMessageBox()
+        {
+            SetPopupVisibility(messageBox.GetComponent<Popup>(), false);
+        }
+
         public void ShowMessageBox(Type_MessageBox type_MessageBox, string title, string message, UnityAction yesCallback = null, UnityAction noCallback = null)
         {
-            messageBox.GetComponent<MessageBox>().Show(type_MessageBox, title, message, yesCallback, noCallback);
+            var messageBoxComponent = messageBox.GetComponent<MessageBox>();
+            if (messageBoxComponent != null)
+            {
+                messageBoxComponent.Show(type_MessageBox, title, message, yesCallback, noCallback);
+            }
         }
         #endregion
     }

@@ -5,6 +5,7 @@ using NoobKnight.Utils;
 using NoobKnight.Managers;
 using CustomInspector;
 using Nakama;
+using NoobKnight.Tools;
 
 namespace NoobKnight.Managers.Popups
 {
@@ -15,11 +16,11 @@ namespace NoobKnight.Managers.Popups
         [ForceFill] public GameObject loginForm;
         [ForceFill] public GameObject registerForm;
 
-        [HorizontalLine("Login Form Attributes")]
+        [HorizontalLine("Login Form Components")]
         [ForceFill] public TMP_InputField ip_EmailLogin;
         [ForceFill] public TMP_InputField ip_PasswordLogin;
 
-        [HorizontalLine("Login Form Attributes")]
+        [HorizontalLine("Login Form Components")]
         [ForceFill] public TMP_InputField ip_EmailRegister;
         [ForceFill] public TMP_InputField ip_PasswordRegister;
         [ForceFill] public TMP_InputField ip_RePasswordRegister;
@@ -37,13 +38,15 @@ namespace NoobKnight.Managers.Popups
         public void ResetUI()
         {
             OnClickSwitchForm(true);
+            ClearInputFields(ip_EmailLogin, ip_PasswordLogin, ip_EmailRegister, ip_PasswordRegister, ip_RePasswordRegister);
+        }
 
-            ip_EmailLogin.text = "";
-            ip_PasswordLogin.text = "";
-
-            ip_EmailRegister.text = "";
-            ip_PasswordRegister.text = "";
-            ip_RePasswordRegister.text = "";
+        private void ClearInputFields(params TMP_InputField[] fields)
+        {
+            foreach (var field in fields)
+            {
+                field.text = "";
+            }
         }
         #endregion
 
@@ -74,7 +77,7 @@ namespace NoobKnight.Managers.Popups
         {
             if (account != null)
             {
-                Debug.Log(LOG_TYPE.AUTH + "login success with ID: " + account.User.Id);
+                ZuyLogger.Log(LOG_TYPE.AUTH, "login success with ID: " + account.User.Id);
                 SceneManager.ChangeScene(SceneNames.BeginnerVillage);
             }
             else
@@ -88,10 +91,10 @@ namespace NoobKnight.Managers.Popups
         {
             if (account != null)
             {
-                Debug.Log(LOG_TYPE.AUTH + "register success with ID: " + account.User.Id);
+                ZuyLogger.Log(LOG_TYPE.AUTH, "register success with ID: " + account.User.Id);
                 OnClickSwitchForm(true);
                 ip_EmailLogin.text = account.Email;
-                ip_PasswordLogin.text = "";
+                ClearInputFields(ip_PasswordLogin);
             }
             else
             {

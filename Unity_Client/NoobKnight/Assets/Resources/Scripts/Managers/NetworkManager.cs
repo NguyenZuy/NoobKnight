@@ -3,6 +3,7 @@ using UnityEngine;
 using NoobKnight.Utils;
 using NoobKnight.Managers.Nakama;
 using CustomInspector;
+using NoobKnight.Tools;
 
 namespace NoobKnight.Managers
 {
@@ -22,7 +23,7 @@ namespace NoobKnight.Managers
         public void ConnectToServer()
         {
             client = new Client(nakamaConnection.scheme, nakamaConnection.host, nakamaConnection.port, nakamaConnection.serverKey, UnityWebRequestAdapter.Instance);
-            Debug.Log(LOG_TYPE.NAKAMA + "Connected to Nakama Server");
+            ZuyLogger.Log(LOG_TYPE.NAKAMA, "Connected to Nakama Server");
 
             serverHandler = new ServerHandler();
         }

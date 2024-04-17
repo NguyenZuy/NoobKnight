@@ -10,18 +10,20 @@ namespace NoobKnight.Managers
     public enum Type_MessageBox
     {
         OK,
-        OK_CANCEL
+        OK_CANCEL,
+        YES_NO
     }
 
     public class MessageBox : MonoBehaviour
     {
         #region Variables
-        [HorizontalLine("Attributes")]
+        [HorizontalLine("Components")]
         [ForceFill] public TextMeshProUGUI txt_Title;
         [ForceFill] public TextMeshProUGUI txt_Content;
         [ForceFill] public Button btn_Ok;
         [ForceFill] public Button btn_Yes;
         [ForceFill] public Button btn_No;
+        [ForceFill] public Button btn_Cancel;
 
         private UnityAction _yesCallback;
         private UnityAction _noCallback;
@@ -53,6 +55,7 @@ namespace NoobKnight.Managers
             btn_Ok.gameObject.SetActive(false);
             btn_Yes.gameObject.SetActive(false);
             btn_No.gameObject.SetActive(false);
+            btn_Cancel.gameObject.SetActive(false);
 
             switch (type_MessageBox)
             {
@@ -62,6 +65,10 @@ namespace NoobKnight.Managers
 
                 case Type_MessageBox.OK_CANCEL:
                     btn_Ok.gameObject.SetActive(true);
+                    btn_Cancel.gameObject.SetActive(true);
+                    break;
+                case Type_MessageBox.YES_NO:
+                    btn_Yes.gameObject.SetActive(true);
                     btn_No.gameObject.SetActive(true);
                     break;
 
@@ -74,37 +81,25 @@ namespace NoobKnight.Managers
         public void Hide()
         {
             InittializeSequence(0f, Vector3.zero)
-                .OnComplete(() =>
-                {
-                    this.gameObject.SetActive(false);
-                })
+                .OnComplete(() => this.gameObject.SetActive(false))
                 .Play();
         }
         #endregion
 
         #region OnClick Methods
-        public void OnClickOk()
-        {
-            Hide();
-        }
+        public void OnClickOk() => Hide();
 
         public void OnClickYes()
         {
-            if(_yesCallback != null)
-            {
-                _yesCallback.Invoke();
-                _yesCallback = null;
-            }
+            _yesCallback?.Invoke();
+            _yesCallback = null;
             Hide();
         }
 
         public void OnClickNo()
         {
-            if (_noCallback != null)
-            {
-                _noCallback.Invoke();
-                _noCallback = null;
-            }
+            _noCallback?.Invoke();
+            _noCallback = null;
             Hide();
         }
         #endregion
@@ -113,11 +108,13 @@ namespace NoobKnight.Managers
         public Sequence InittializeSequence(float targetAlpha, Vector3 targetScale)
         {
             float duration = 0.2f;
-
             Sequence sequence = Sequence.Create();
 
-            Tween tween1 = this.GetComponent<CanvasGroup>().TweenAlpha(targetAlpha, duration);
-            Tween tween2 = this.transform.TweenLocalScale(targetScale, duration);
+            var canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+            Tween tween1 = canvasGroup.TweenAlpha(targetAlpha, duration);
+            Tween tween2 = transform.TweenLocalScale(targetScale, duration);
 
             sequence.Join(tween1);
             sequence.Join(tween2);

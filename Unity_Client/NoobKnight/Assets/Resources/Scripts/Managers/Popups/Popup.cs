@@ -6,7 +6,7 @@ namespace NoobKnight.Managers.Popups
 {
     public class Popup : MonoBehaviour
     {
-        [HorizontalLine("Popup Attributes")]
+        [HorizontalLine("Popup Components")]
         public bool canBack;
 
         protected object m_Parameter;
@@ -20,24 +20,15 @@ namespace NoobKnight.Managers.Popups
                         OnShowing();
                         m_Parameter = parameter;
                     })
-                    .OnComplete(() =>
-                    {
-                        OnShown();
-                    })
+                    .OnComplete(() => OnShown())
                     .Play();
         }
 
         public void Hide()
         {
             InittializeSequence(0f, Vector3.zero)
-                    .OnStart(() =>
-                    {
-                        OnHiding();
-                    })
-                    .OnComplete(() =>
-                    {
-                        OnHidden();
-                    })
+                    .OnStart(() => OnHiding())
+                    .OnComplete(() => OnHidden())
                     .Play();
         }
         #endregion
