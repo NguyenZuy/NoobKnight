@@ -3,7 +3,7 @@ using NoobKnight.Utils;
 
 namespace NoobKnight.Managers
 {
-    public class PlayerDataManager : BaseSingleton<PlayerDataManager>
+    public class PlayerDataManager
     {
         #region Variables
         public PlayerAuthenticateData playerAuthenticateData = new PlayerAuthenticateData();

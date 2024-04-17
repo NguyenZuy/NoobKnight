@@ -11,6 +11,7 @@ namespace NoobKnight.Managers
         [ForceFill] public NetworkManager NetworkManager;
         [ForceFill] public SceneManager SceneManager;
         [ForceFill] public UIManager UIManager;
+        [ForceFill] public PlayerDataManager PlayerDataManager;
 
         public GameObject[] objs;
 

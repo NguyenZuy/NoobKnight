@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7ccb478c69d83b54ba1bc6c4dffe0f78
+guid: e998d2bc029cb59468391ac1d41d5526
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,12 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
+  fontName: Pribambas
   fontNames:
   - Pribambas
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f4d027a150f3f1b45a5507c536bc9dbb, type: 3}
+  - {fileID: 12800000, guid: e727bb3dd14599445be69e10e8c348d3, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
