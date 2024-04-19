@@ -4,6 +4,7 @@ namespace NoobKnight.Entities
     {
         public StatisticsData statisticsData = new StatisticsData();
         public AppearanceData appearanceData = new AppearanceData();
+        public EquipmentData equipmentData = new EquipmentData();
 
         
         public class StatisticsData
@@ -14,23 +15,31 @@ namespace NoobKnight.Entities
 
         public class AppearanceData
         {
-            public int BodyID;
-            public int ArmorID;
-            public int QuiverID;
+            public string SkinColor;
+            public string EyeColor;
+            public string HairColor;
 
             public int HeadID;
-            public int MakeupID;
-            public int MaskID;
             public int HairID;
-            public int HelmetID;
+            public int MakeupID;
             public int EarLID;
-            public int EarringLID;
             public int EarRID;
-            public int EarrungRID;
             public int Eyes;
             public int EyeBrowsID;
             public int MouthID;
             public int BeardID;
+        }
+
+        public class EquipmentData
+        {
+            public int BodyID;
+            public int ArmorID;
+            public int QuiverID;
+
+            public int MaskID;
+            public int HelmetID;
+            public int EarringLID;
+            public int EarrungRID;
 
             public int ArmLID;
             public int ArmLArmorID;

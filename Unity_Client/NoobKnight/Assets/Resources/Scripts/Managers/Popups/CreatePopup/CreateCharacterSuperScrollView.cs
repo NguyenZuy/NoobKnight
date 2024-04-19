@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace NoobKnight.Managers
 {
-    public class CreateCharacterSuperScrollView : BaseSuperScrollView<ItemInventory>
+    public class CreateCharacterSuperScrollView : BaseSuperScrollView<ItemCustomizeAppearance>
     {
         #region Inheritance Methods
-        public override void InitView(params ItemInventory[] items)
+        public override void InitView(params ItemCustomizeAppearance[] items)
         {
             base.InitView(items);
 
@@ -20,6 +20,10 @@ namespace NoobKnight.Managers
         {
 
         }
+        #endregion
+
+        #region Util Methods
+        //private 
         #endregion
     }
 }

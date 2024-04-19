@@ -7,6 +7,8 @@ namespace NoobKnight.Managers
     {
         #region Variables
         public PlayerAuthenticateData playerAuthenticateData = new PlayerAuthenticateData();
+        public PlayerCharacterData playerCharacterData = new PlayerCharacterData();
+        public PlayerInventory
         #endregion
     }
 }

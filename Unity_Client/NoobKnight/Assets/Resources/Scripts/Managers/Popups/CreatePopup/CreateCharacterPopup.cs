@@ -27,25 +27,10 @@ namespace NoobKnight.Managers.Popups
         #endregion
 
         #region Utils Methods
+        private void InitDefaultData()
+        {
 
+        }
         #endregion
-    }
-
-    public class CreateCharacterDefaultData
-    {
-        public List<ItemInventoryData> itemInventoryDatas = new List<ItemInventoryData>();
-
-        public CreateCharacterDefaultData()
-        {
-
-        }
-
-        private void InitializeData()
-        {
-            itemInventoryDatas.Add(new ItemInventoryData()
-            {
-
-            })
-        }
     }
 }
