@@ -27,7 +27,7 @@ namespace NoobKnight.Managers
         [HorizontalLine("Arm Left")]
         [ForceFill] public SpriteRenderer armL;
         [ForceFill] public SpriteRenderer armLArmor;
-        [ForceFill] public SpriteRenderer armLSleeve; 
+        [ForceFill] public SpriteRenderer armLSleeve;
         [ForceFill] public SpriteRenderer handL;
         [ForceFill] public SpriteRenderer handLArmor;
         [ForceFill] public SpriteRenderer handLWeapon;

@@ -15,10 +15,10 @@ namespace NoobKnight.Managers
         [ForceFill] public GameObject loadingCircle;
         [ForceFill] public GameObject messageBox;
 
-        private Dictionary<string, Popup> popupsDict = new Dictionary<string, Popup>();
+        private Dictionary<string, BasePopup> popupsDict = new Dictionary<string, BasePopup>();
 
-        public Popup PreviousPopup { get; private set; }
-        public Popup CurrentPopup { get; private set; }
+        public BasePopup PreviousPopup { get; private set; }
+        public BasePopup CurrentPopup { get; private set; }
         #endregion
 
         #region Unity Lifecycle Methods
@@ -34,7 +34,7 @@ namespace NoobKnight.Managers
         {
             foreach (Transform child in popupsContainer.transform)
             {
-                var popup = child.GetComponent<Popup>();
+                var popup = child.GetComponent<BasePopup>();
                 if (popup == null) continue; // Skip if Popup component is missing
 
                 popupsDict[child.name] = popup; // Use assignment for add or update
@@ -49,7 +49,7 @@ namespace NoobKnight.Managers
             }
         }
 
-        private void SetPopupVisibility(Popup popup, bool isVisible)
+        private void SetPopupVisibility(BasePopup popup, bool isVisible)
         {
             var canvasGroup = popup.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
@@ -94,7 +94,7 @@ namespace NoobKnight.Managers
             }
         }
 
-        public void HidePopup(Popup popup)
+        public void HidePopup(BasePopup popup)
         {
             SetPopupVisibility(popup, false);
         }
@@ -110,7 +110,7 @@ namespace NoobKnight.Managers
 
         private void InitializeMessageBox()
         {
-            SetPopupVisibility(messageBox.GetComponent<Popup>(), false);
+            SetPopupVisibility(messageBox.GetComponent<BasePopup>(), false);
         }
 
         public void ShowMessageBox(Type_MessageBox type_MessageBox, string title, string message, UnityAction yesCallback = null, UnityAction noCallback = null)
