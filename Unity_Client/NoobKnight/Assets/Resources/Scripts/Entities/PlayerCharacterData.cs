@@ -15,16 +15,16 @@ namespace NoobKnight.Entities
 
         public class AppearanceData
         {
-            public string SkinColor;
-            public string EyeColor;
-            public string HairColor;
+            public int SkinColorID;
+            public int EyeColorID;
+            public int HairColorID;
 
             public int HeadID;
             public int HairID;
             public int MakeupID;
             public int EarLID;
             public int EarRID;
-            public int Eyes;
+            public int EyesID;
             public int EyeBrowsID;
             public int MouthID;
             public int BeardID;

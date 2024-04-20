@@ -11,7 +11,7 @@ namespace NoobKnight.Tools
         [HorizontalLine("Components")]
         [ForceFill] public SuperScollRect superScollRect;
 
-        private List<T> _datas = new List<T>();
+        protected List<T> _datas = new List<T>();
         #endregion 
 
         #region Super Scroll View Methods

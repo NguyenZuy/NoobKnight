@@ -4,14 +4,14 @@ using CustomInspector;
 
 namespace NoobKnight.Managers
 {
-    public class CustomizeAppearanceScrollView : BaseSuperScrollView<ItemCustomizeAppearance>
+    public class CustomizeAppearanceScrollView : BaseSuperScrollView<int>
     {
         #region Variables
 
         #endregion
 
         #region Inheritance Methods
-        public override void InitView(params ItemCustomizeAppearance[] items)
+        public override void InitView(params int[] items)
         {
             base.InitView(items);
 
@@ -20,7 +20,8 @@ namespace NoobKnight.Managers
 
         public override void SetCell(GameObject cell, int index)
         {
-
+            var item = cell.GetComponent<ItemCustomizeAppearance>();
+            item.BindData(_datas[index]);
         }
         #endregion
     }

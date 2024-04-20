@@ -2,6 +2,7 @@ using UnityEngine;
 using CustomInspector;
 using NoobKnight.Utils;
 using UnityEngine.Events;
+using NoobKnight.Entities;
 
 namespace NoobKnight.Managers
 {
@@ -20,7 +21,7 @@ namespace NoobKnight.Managers
         #endregion
 
         #region Data Methods
-        public void InitializeData()
+        public void InitializeData(PlayerInventoryData.AppearanceData appearanceInventoryData)
         {
 
         }

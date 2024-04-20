@@ -10,5 +10,10 @@ namespace NoobKnight.Managers
         [HorizontalLine("Components")]
         [ForceFill] public Image imgIcon;
         #endregion
+
+        public void BindData(int ID)
+        {
+
+        }
     }
 }

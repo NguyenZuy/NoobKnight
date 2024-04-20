@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NoobKnight.Tools
 {
-    public class ZuyLogger : MonoBehaviour
+    public static class ZuyLogger
     {
         public static void Log(string prefix, string message)
         {
