@@ -3,7 +3,6 @@ using UnityEngine;
 using NoobKnight.Utils;
 using NoobKnight.Managers.Nakama;
 using CustomInspector;
-using NoobKnight.Tools;
 
 namespace NoobKnight.Managers
 {

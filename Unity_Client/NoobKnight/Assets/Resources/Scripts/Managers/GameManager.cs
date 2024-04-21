@@ -1,5 +1,6 @@
 using CustomInspector;
 using NoobKnight.Utils;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NoobKnight.Managers
@@ -12,6 +13,7 @@ namespace NoobKnight.Managers
         [ForceFill] public SceneManager SceneManager;
         [ForceFill] public UIManager UIManager;
         [ForceFill] public PlayerDataManager PlayerDataManager;
+        [ForceFill] public ResourceManager ResourceManager;
 
         public GameObject[] objs;
 

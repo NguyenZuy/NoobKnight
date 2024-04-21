@@ -22,11 +22,10 @@ namespace NoobKnight.Entities
             public int HeadID;
             public int HairID;
             public int MakeupID;
-            public int EarLID;
-            public int EarRID;
+            public int EarID;
             public int EyesID;
             public int EyeBrowsID;
-            public int MouthID;
+            public int MouthIDHair;
             public int BeardID;
         }
 

@@ -1,4 +1,4 @@
-using NoobKnight.Tools;
+using NoobKnight.Utils;
 using UnityEngine;
 using CustomInspector;
 
@@ -11,13 +11,6 @@ namespace NoobKnight.Managers
         #endregion
 
         #region Inheritance Methods
-        public override void InitView(params int[] items)
-        {
-            base.InitView(items);
-
-            superScollRect.DoAwake(this);
-        }
-
         public override void SetCell(GameObject cell, int index)
         {
             var item = cell.GetComponent<ItemCustomizeAppearance>();

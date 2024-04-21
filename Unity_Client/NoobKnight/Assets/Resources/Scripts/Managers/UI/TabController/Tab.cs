@@ -2,7 +2,7 @@ using CustomInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NoobKnight.Tools
+namespace NoobKnight.Utils
 {
     public class Tab : MonoBehaviour
     {

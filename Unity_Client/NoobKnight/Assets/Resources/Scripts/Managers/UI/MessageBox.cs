@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using MagicTween;
+using NoobKnight.Managers.Popups;
 
 namespace NoobKnight.Managers
 {
@@ -14,7 +15,7 @@ namespace NoobKnight.Managers
         YES_NO
     }
 
-    public class MessageBox : MonoBehaviour
+    public class MessageBox : BasePopup
     {
         #region Variables
         [HorizontalLine("Components")]

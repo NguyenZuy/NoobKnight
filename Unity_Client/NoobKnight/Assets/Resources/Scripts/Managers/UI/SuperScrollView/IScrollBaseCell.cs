@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NoobKnight.Tools
+namespace NoobKnight.Managers
 {
     public interface IScrollBaseCell<T>
     {

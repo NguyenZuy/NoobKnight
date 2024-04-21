@@ -18,12 +18,14 @@ namespace NoobKnight.Managers
         public UnityAction<TypeAppearance, int> OnChangeAppearance { get; set; }
 
         private TypeAppearance _curMode;
+
+        private PlayerInventoryData.AppearanceData _appearanceData;
         #endregion
 
         #region Data Methods
-        public void InitializeData(PlayerInventoryData.AppearanceData appearanceInventoryData)
+        public void SetupData(PlayerInventoryData.AppearanceData appearanceInventoryData)
         {
-
+            _appearanceData = appearanceInventoryData;
         }
         #endregion
 
@@ -40,19 +42,37 @@ namespace NoobKnight.Managers
         {
             TypeAppearance typeAppearance = typeAppearanceComponent.typeAppearance;
             _curMode = typeAppearance;
+            SetMode(typeAppearance != TypeAppearance.Skin_Color || typeAppearance != TypeAppearance.Eye_Color || typeAppearance != TypeAppearance.Hair_Color);
             switch (typeAppearance)
             {
-                case TypeAppearance.Skin_Color:
-                case TypeAppearance.Eye_Color:
-                case TypeAppearance.Hair_Color:
-                    SetMode(false);
+                case TypeAppearance.Head:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.HeadIDs);
+                    break;
+                case TypeAppearance.Hair:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.HairIDs);
+                    break;
+                case TypeAppearance.Makeup:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.MakeupIDs);
                     break;
                 case TypeAppearance.Ear:
-
+                    customizeAppearanceScrollView.SetupData(_appearanceData.EarIDs);
+                    break;
+                case TypeAppearance.Eyes:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.EyesIDs);
+                    break;
+                case TypeAppearance.Eyebrows:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.EyeBrowsIDs);
+                    break;
+                case TypeAppearance.Mouth:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.MouthIDs);
+                    break;
+                case TypeAppearance.Beard:
+                    customizeAppearanceScrollView.SetupData(_appearanceData.BeardIDs);
                     break;
                 default:
                     break;
             }
+            customizeAppearanceScrollView.ReloadData();
         }
 
         public void OnClickItemColor(ItemColor itemColor)

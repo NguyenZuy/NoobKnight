@@ -1,5 +1,4 @@
 using UnityEngine;
-using CustomInspector;
 
 namespace NoobKnight.Managers.Character
 {

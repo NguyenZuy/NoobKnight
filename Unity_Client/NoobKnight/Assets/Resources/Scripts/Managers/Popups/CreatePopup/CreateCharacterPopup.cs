@@ -15,6 +15,7 @@ namespace NoobKnight.Managers.Popups
         #region Variables
         [HorizontalLine("Components")]
         [ForceFill] public CustomizeAppearance customizeAppearance;
+        [ForceFill] public GameObject characterPreview;
         #endregion
 
         #region Inheritance Methods
@@ -22,8 +23,17 @@ namespace NoobKnight.Managers.Popups
         {
             base.OnShowing();
 
+            characterPreview.SetActive(true);
             customizeAppearance.OnChangeAppearance = OnChangeAppearance;
-            customizeAppearance.InitializeData(InitDefaultData());
+            customizeAppearance.SetupData(InitDefaultData());
+            customizeAppearance.customizeAppearanceScrollView.InitView();
+        }
+
+        protected override void OnHiding()
+        {
+            base.OnHiding();
+
+            characterPreview.SetActive(false);
         }
         #endregion
 
@@ -39,15 +49,14 @@ namespace NoobKnight.Managers.Popups
         {
             return new PlayerInventoryData.AppearanceData()
             {
-                HeadIDs = new int[] { },
-                HairIDs = new int[] { },
-                MakeupIDs = new int[] { },
-                EarLIDs = new int[] { },
-                EarRIDs = new int[] { },
-                EyesIDs = new int[] { },
-                EyeBrowsIDs = new int[] { },
-                MouthIDs = new int[] { },
-                BeardIDs = new int[] { }
+                HeadIDs = new int[] { 110100001 },
+                HairIDs = new int[] { 110200001 },
+                MakeupIDs = new int[] { 110300001 },
+                EarIDs = new int[] { 110400001 },
+                EyesIDs = new int[] { 110500001 },
+                EyeBrowsIDs = new int[] { 110600001 },
+                MouthIDs = new int[] { 110700001 },
+                BeardIDs = new int[] { 110800001 }
             };
         }
         #endregion

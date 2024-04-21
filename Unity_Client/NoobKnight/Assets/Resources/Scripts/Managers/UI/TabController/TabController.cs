@@ -3,7 +3,7 @@ using CustomInspector;
 using System;
 using UnityEngine.UI;
 
-namespace NoobKnight.Tools 
+namespace NoobKnight.Utils 
 {
     public class TabController : MonoBehaviour
     {

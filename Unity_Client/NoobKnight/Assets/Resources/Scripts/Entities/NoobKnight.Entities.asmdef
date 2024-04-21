@@ -2,7 +2,9 @@
     "name": "NoobKnight.Entities",
     "rootNamespace": "NoobKnight.Entities",
     "references": [
-        "GUID:25ab73e5e772c43669ee57183c7e8e62"
+        "GUID:25ab73e5e772c43669ee57183c7e8e62",
+        "GUID:962f75d2a66ca3741815080a77b41adb",
+        "GUID:48c451e5f582e174db7222e2669f9192"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

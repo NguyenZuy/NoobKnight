@@ -1,7 +1,7 @@
 using NoobKnight.Managers.Popups;
 using NoobKnight.Utils;
 
-namespace NoobKnight.Managers
+namespace NoobKnight.Managers.Popups
 {
     public class IntroPopup : BasePopup
     {

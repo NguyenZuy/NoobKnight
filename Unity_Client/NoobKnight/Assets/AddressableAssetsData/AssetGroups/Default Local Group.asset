@@ -20,7 +20,14 @@ MonoBehaviour:
   - m_GUID: 72d71ff85b7e52e42aec9316507cc831
     m_Address: Atlas/AppearanceAtals
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Atlases
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4759f2126cab81d48ae998a0003b75d1
+    m_Address: ScriptableObject/Configs/ConfigAppearancce
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Configs
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c3f2bc25a8e302843846797516b73a41, type: 2}

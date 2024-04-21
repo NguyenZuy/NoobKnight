@@ -240,8 +240,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 970613600367819607}
   m_HandleRect: {fileID: 8754304804299333203}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.962963
+  m_Value: 0.999998
+  m_Size: 0.96296287
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2368,7 +2368,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6209258234080527325}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2385,7 +2385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBack: 0
-  customizeAppearance: {fileID: 0}
+  customizeAppearance: {fileID: 1420297660199463124}
+  characterPreview: {fileID: 4682703991154813630}
 --- !u!1 &6391753335061078454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,6 +4110,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterPreview
       objectReference: {fileID: 0}
+    - target: {fileID: 7576583423259380055, guid: 5c4c9a3a2d3d6624fa599fe5fc33e98b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7593630372128503283, guid: 5c4c9a3a2d3d6624fa599fe5fc33e98b, type: 3}
       propertyPath: m_SortingLayer
       value: 1
@@ -4285,6 +4290,11 @@ PrefabInstance:
 --- !u!224 &2266076674914622350 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3939410222178547815, guid: 5c4c9a3a2d3d6624fa599fe5fc33e98b, type: 3}
+  m_PrefabInstance: {fileID: 3015476624627540969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4682703991154813630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7576583423259380055, guid: 5c4c9a3a2d3d6624fa599fe5fc33e98b, type: 3}
   m_PrefabInstance: {fileID: 3015476624627540969}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8363700515385692593

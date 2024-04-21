@@ -18,12 +18,16 @@ namespace NoobKnight.Utils
     public enum TypeAppearance
     {
         Skin_Color = 0,
-        Head = 1,
-        Ear = 2,
-        Eye = 3,
-        Eye_Color = 4,
-        Eyebrows = 5,
-        Hair = 6,
-        Hair_Color = 7,
+        Eye_Color = 1,
+        Hair_Color = 2,
+
+        Head = 3,
+        Hair = 4,
+        Makeup = 5,
+        Ear = 6,
+        Eyes = 7,
+        Eyebrows = 8,
+        Mouth = 9,
+        Beard = 10,
     }
 }

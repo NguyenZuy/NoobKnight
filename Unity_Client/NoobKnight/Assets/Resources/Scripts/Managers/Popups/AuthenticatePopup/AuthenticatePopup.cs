@@ -5,7 +5,8 @@ using NoobKnight.Utils;
 using NoobKnight.Managers;
 using CustomInspector;
 using Nakama;
-using NoobKnight.Tools;
+using NoobKnight.Utils;
+using System.Threading.Tasks;
 
 namespace NoobKnight.Managers.Popups
 {
@@ -55,7 +56,7 @@ namespace NoobKnight.Managers.Popups
         {
             GameManager.Instance.UIManager.ShowLoadingCircle();
             var account = await GameManager.Instance.NetworkManager.serverHandler.AuthenticateEmail(ip_EmailLogin.text, ip_PasswordLogin.text);
-            OnLoginResult(account);
+            OnLoginResultAsync(account);
         }
 
         public async void OnClickSubmitRegister()
@@ -73,11 +74,13 @@ namespace NoobKnight.Managers.Popups
         #endregion
 
         #region Callback Methods
-        public void OnLoginResult(IApiAccount account)
+        public async void OnLoginResultAsync(IApiAccount account)
         {
             if (account != null)
             {
                 ZuyLogger.Log(LOG_TYPE.AUTH, "login success with ID: " + account.User.Id);
+                await GameManager.Instance.ResourceManager.LoadResourcesAsync();
+
                 SceneManager.ChangeScene(SceneNames.BeginnerVillage);
             }
             else

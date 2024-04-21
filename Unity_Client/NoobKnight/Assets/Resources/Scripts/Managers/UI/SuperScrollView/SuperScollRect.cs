@@ -1,6 +1,6 @@
 using GamesTan.UI;
 
-namespace NoobKnight.Tools
+namespace NoobKnight.Managers
 {
     public class SuperScollRect : BaseSuperScrollRect
     {
