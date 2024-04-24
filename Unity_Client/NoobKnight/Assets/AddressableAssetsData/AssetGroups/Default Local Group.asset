@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: f40886ce15c48d146999ee34e9927e0d
   m_SerializeEntries:
   - m_GUID: 72d71ff85b7e52e42aec9316507cc831
-    m_Address: Atlas/AppearanceAtals
+    m_Address: Atlas/AppearanceAtlas
     m_ReadOnly: 0
     m_SerializedLabels:
     - Atlases
@@ -28,6 +28,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Configs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 283b5556590d51948bf9dbdd10323a8b
+    m_Address: Assets/Resources_moved/Atlas/UI_v1.spriteatlasv2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Atlases
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c3f2bc25a8e302843846797516b73a41, type: 2}

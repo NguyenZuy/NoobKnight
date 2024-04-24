@@ -45,17 +45,7 @@ namespace NoobKnight.Managers
                     continue;
                 }
 
-                SetPopupVisibility(popup, false);
-            }
-        }
-
-        private void SetPopupVisibility(BasePopup popup, bool isVisible)
-        {
-            var canvasGroup = popup.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = isVisible ? 1f : 0f;
-                popup.transform.localScale = isVisible ? Vector3.one : Vector3.zero;
+                popup.Hide();
             }
         }
 
@@ -64,17 +54,17 @@ namespace NoobKnight.Managers
             if (!popupsDict.TryGetValue(popupName.ToString(), out var popup)) return;
 
             popup.transform.SetAsLastSibling();
-            SetPopupVisibility(popup, true);
+            popup.Show();
 
             if (PreviousPopup != null && !PreviousPopup.canBack)
             {
-                SetPopupVisibility(PreviousPopup, false);
+                PreviousPopup.Hide();
                 PreviousPopup = null;
             }
 
             if (CurrentPopup != null)
             {
-                if (!CurrentPopup.canBack) SetPopupVisibility(CurrentPopup, false);
+                if (!CurrentPopup.canBack) CurrentPopup.Hide();
                 else PreviousPopup = CurrentPopup;
             }
 
@@ -85,18 +75,13 @@ namespace NoobKnight.Managers
         {
             if (!popupsDict.TryGetValue(popupName.ToString(), out var popup)) return;
 
-            SetPopupVisibility(popup, false);
+            popup.Hide();
 
             if (PreviousPopup != null)
             {
                 CurrentPopup = PreviousPopup;
                 PreviousPopup = null;
             }
-        }
-
-        public void HidePopup(BasePopup popup)
-        {
-            SetPopupVisibility(popup, false);
         }
         #endregion
 
@@ -108,10 +93,7 @@ namespace NoobKnight.Managers
 
         #region Message Box Methods
 
-        private void InitializeMessageBox()
-        {
-            SetPopupVisibility(messageBox.GetComponent<BasePopup>(), false);
-        }
+        private void InitializeMessageBox() => messageBox.GetComponent<BasePopup>().Hide();
 
         public void ShowMessageBox(Type_MessageBox type_MessageBox, string title, string message, UnityAction yesCallback = null, UnityAction noCallback = null)
         {

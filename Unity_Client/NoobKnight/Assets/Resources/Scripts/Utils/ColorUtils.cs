@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
 
-public static class ColorUtils
+namespace NoobKnight.Utils
 {
-    // Phương thức chuyển đổi từ Color32 sang integer
-    public static int Color32ToInt(Color32 color)
+    public static class ColorUtils
     {
-        return color.r << 24 | color.g << 16 | color.b << 8 | color.a;
-    }
+        public static int Color32ToInt(Color32 color)
+        {
+            return (color.a << 24) | (color.r << 16) | (color.g << 8) | color.b;
+        }
 
-    // Phương thức chuyển đổi từ integer sang Color32
-    public static Color32 IntToColor32(int intColor)
-    {
-        return new Color32(
-            (byte)((intColor >> 24) & 0xFF),
-            (byte)((intColor >> 16) & 0xFF),
-            (byte)((intColor >> 8) & 0xFF),
-            (byte)(intColor & 0xFF)
-        );
+        public static Color32 IntToColor32(int colorInt)
+        {
+            byte a = (byte)((colorInt >> 24) & 0xFF);
+            byte r = (byte)((colorInt >> 16) & 0xFF);
+            byte g = (byte)((colorInt >> 8) & 0xFF);
+            byte b = (byte)(colorInt & 0xFF);
+            return new Color32(r, g, b, a);
+        }
     }
 }

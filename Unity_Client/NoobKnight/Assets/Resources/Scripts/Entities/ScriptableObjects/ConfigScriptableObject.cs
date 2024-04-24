@@ -1,5 +1,6 @@
 using NoobKnight.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NoobKnight.Utils
@@ -27,6 +28,11 @@ namespace NoobKnight.Utils
         private void Open()
         {
             ReadGoogleSheets.OpenUrl(sheetId, gridId);
+        }
+
+        public ItemConfigAppearance GetItemConfigAppearanceByID(int ID)
+        {
+            return items.FirstOrDefault(item => item.ID == ID);
         }
     }
 }

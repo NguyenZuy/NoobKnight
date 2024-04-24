@@ -7,6 +7,7 @@ using CustomInspector;
 using Nakama;
 using NoobKnight.Entities;
 using System.Collections.Generic;
+using NoobKnight.Managers.Character;
 
 namespace NoobKnight.Managers.Popups
 {
@@ -15,7 +16,7 @@ namespace NoobKnight.Managers.Popups
         #region Variables
         [HorizontalLine("Components")]
         [ForceFill] public CustomizeAppearance customizeAppearance;
-        [ForceFill] public GameObject characterPreview;
+        [ForceFill] public CharacterPreview characterPreview;
         #endregion
 
         #region Inheritance Methods
@@ -23,24 +24,17 @@ namespace NoobKnight.Managers.Popups
         {
             base.OnShowing();
 
-            characterPreview.SetActive(true);
-            customizeAppearance.OnChangeAppearance = OnChangeAppearance;
+            characterPreview.gameObject.SetActive(true);
+            customizeAppearance.OnChangeAppearance = characterPreview.OnChangeAppearance;
             customizeAppearance.SetupData(InitDefaultData());
-            customizeAppearance.customizeAppearanceScrollView.InitView();
+            //customizeAppearance.customizeAppearanceScrollView.InitView();
         }
 
         protected override void OnHiding()
         {
             base.OnHiding();
 
-            characterPreview.SetActive(false);
-        }
-        #endregion
-
-        #region Methods
-        public void OnChangeAppearance(TypeAppearance typeAppearance, int ID)
-        {
-
+            characterPreview.gameObject.SetActive(false);
         }
         #endregion
 

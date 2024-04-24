@@ -5753,7 +5753,7 @@ MonoBehaviour:
   handRArrow: {fileID: 1260855108305584746}
   legL: {fileID: 3992538012910969707}
   legLArmor: {fileID: 5287902109616323097}
-  legR: {fileID: 3992538012910969707}
+  legR: {fileID: 8388421043210973450}
   legRArmor: {fileID: 4539484889795279888}
 --- !u!1 &3362305281352248948
 GameObject:
@@ -7511,7 +7511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3854831081064624877}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -406.59998, y: -32.099976, z: 0}
   m_LocalScale: {x: 150, y: 150, z: 0}
   m_ConstrainProportionsScale: 0

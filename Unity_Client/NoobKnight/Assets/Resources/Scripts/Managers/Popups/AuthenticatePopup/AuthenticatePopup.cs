@@ -1,12 +1,8 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using NoobKnight.Utils;
-using NoobKnight.Managers;
 using CustomInspector;
 using Nakama;
 using NoobKnight.Utils;
-using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
 
 namespace NoobKnight.Managers.Popups
 {
@@ -21,7 +17,7 @@ namespace NoobKnight.Managers.Popups
         [ForceFill] public TMP_InputField ip_EmailLogin;
         [ForceFill] public TMP_InputField ip_PasswordLogin;
 
-        [HorizontalLine("Login Form Components")]
+        [HorizontalLine("Register Form Components")]
         [ForceFill] public TMP_InputField ip_EmailRegister;
         [ForceFill] public TMP_InputField ip_PasswordRegister;
         [ForceFill] public TMP_InputField ip_RePasswordRegister;
@@ -79,9 +75,11 @@ namespace NoobKnight.Managers.Popups
             if (account != null)
             {
                 ZuyLogger.Log(LOG_TYPE.AUTH, "login success with ID: " + account.User.Id);
+                GameManager.Instance.UIManager.HidePopup(PopupNames.AuthenticatePopup);
                 await GameManager.Instance.ResourceManager.LoadResourcesAsync();
 
                 SceneManager.ChangeScene(SceneNames.BeginnerVillage);
+                GameManager.Instance.UIManager.ShowPopup(PopupNames.CreateCharacterPopup);
             }
             else
             {

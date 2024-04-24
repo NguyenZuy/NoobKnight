@@ -1,5 +1,7 @@
 using CustomInspector;
+using NoobKnight.Utils;
 using System;
+using UnityEngine;
 using UnityEngine.U2D;
 
 namespace NoobKnight.Entities

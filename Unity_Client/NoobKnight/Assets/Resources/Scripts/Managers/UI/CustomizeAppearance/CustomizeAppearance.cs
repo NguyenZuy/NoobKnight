@@ -3,6 +3,8 @@ using CustomInspector;
 using NoobKnight.Utils;
 using UnityEngine.Events;
 using NoobKnight.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoobKnight.Managers
 {
@@ -15,69 +17,96 @@ namespace NoobKnight.Managers
 
         [ForceFill] public CustomizeAppearanceScrollView customizeAppearanceScrollView;
 
-        public UnityAction<TypeAppearance, int> OnChangeAppearance { get; set; }
+        public UnityAction<int, AppearanceTypeForCustomize> OnChangeAppearance { get; set; }
 
-        private TypeAppearance _curMode;
+        private AppearanceTypeForCustomize _curMode;
 
         private PlayerInventoryData.AppearanceData _appearanceData;
+
+        private ItemColor _curItemColor;
+        private int _curID;
         #endregion
 
         #region Data Methods
         public void SetupData(PlayerInventoryData.AppearanceData appearanceInventoryData)
         {
             _appearanceData = appearanceInventoryData;
+            OnClickTypes(new TypeAppearanceComponent() { typeAppearance = AppearanceTypeForCustomize.Skin_Color });
         }
         #endregion
 
         #region UI Methods
-        private void SetMode(bool isItems)
+        private void SetMode(bool isColors)
         {
-            itemsPanel.SetActive(isItems);
-            colorsPanel.SetActive(!isItems);
+            itemsPanel.SetActive(!isColors);
+            colorsPanel.SetActive(isColors);
         }
         #endregion
 
         #region OnClick Methods
         public void OnClickTypes(TypeAppearanceComponent typeAppearanceComponent)
         {
-            TypeAppearance typeAppearance = typeAppearanceComponent.typeAppearance;
+            AppearanceTypeForCustomize typeAppearance = typeAppearanceComponent.typeAppearance;
             _curMode = typeAppearance;
-            SetMode(typeAppearance != TypeAppearance.Skin_Color || typeAppearance != TypeAppearance.Eye_Color || typeAppearance != TypeAppearance.Hair_Color);
+            bool isColors = typeAppearance == AppearanceTypeForCustomize.Skin_Color || typeAppearance == AppearanceTypeForCustomize.Eye_Color || typeAppearance == AppearanceTypeForCustomize.Hair_Color;
+            SetMode(isColors);
+            if (isColors) return;
+            else
+            {
+                if (!customizeAppearanceScrollView.isDoAwake)
+                    customizeAppearanceScrollView.InitView();
+            }
+            int[] datas = new int[0];
             switch (typeAppearance)
             {
-                case TypeAppearance.Head:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.HeadIDs);
+                case AppearanceTypeForCustomize.Head:
+                    datas = _appearanceData.HeadIDs;
                     break;
-                case TypeAppearance.Hair:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.HairIDs);
+                case AppearanceTypeForCustomize.Hair:
+                    datas = _appearanceData.HairIDs;
                     break;
-                case TypeAppearance.Makeup:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.MakeupIDs);
+                case AppearanceTypeForCustomize.Makeup:
+                    datas = _appearanceData.MakeupIDs;
                     break;
-                case TypeAppearance.Ear:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.EarIDs);
+                case AppearanceTypeForCustomize.Ear:
+                    datas = _appearanceData.EarIDs;
                     break;
-                case TypeAppearance.Eyes:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.EyesIDs);
+                case AppearanceTypeForCustomize.Eyes:
+                    datas = _appearanceData.EyesIDs;
                     break;
-                case TypeAppearance.Eyebrows:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.EyeBrowsIDs);
+                case AppearanceTypeForCustomize.Eyebrows:
+                    datas = _appearanceData.EyeBrowsIDs;
                     break;
-                case TypeAppearance.Mouth:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.MouthIDs);
+                case AppearanceTypeForCustomize.Mouth:
+                    datas = _appearanceData.MouthIDs;
                     break;
-                case TypeAppearance.Beard:
-                    customizeAppearanceScrollView.SetupData(_appearanceData.BeardIDs);
+                case AppearanceTypeForCustomize.Beard:
+                    datas = _appearanceData.BeardIDs;
                     break;
                 default:
                     break;
             }
+            List<int> rawData = datas.ToList();
+            rawData.Insert(0, 0); // Add none item 
+
+            customizeAppearanceScrollView.SetupData(datas, OnClickItem);
             customizeAppearanceScrollView.ReloadData();
         }
 
         public void OnClickItemColor(ItemColor itemColor)
         {
-            OnChangeAppearance?.Invoke(_curMode, itemColor.GetColor());
+            if (_curItemColor != null && _curItemColor == itemColor)
+                return;
+             OnChangeAppearance?.Invoke(itemColor.GetColor(), _curMode);
+            _curItemColor = itemColor;
+        }
+
+        public void OnClickItem(int ID)
+        {
+            if (_curID != 0 && _curID == ID)
+                return;
+            OnChangeAppearance?.Invoke(ID, _curMode);
+            _curID = ID;
         }
         #endregion
     }

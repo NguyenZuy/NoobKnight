@@ -14,7 +14,7 @@ namespace NoobKnight.Managers
         public override void SetCell(GameObject cell, int index)
         {
             var item = cell.GetComponent<ItemCustomizeAppearance>();
-            item.BindData(_datas[index]);
+            item.BindData(m_datas[index], m_onClickCallback);
         }
         #endregion
     }

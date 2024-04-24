@@ -1,3 +1,4 @@
+using NoobKnight.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ namespace NoobKnight.Managers
 
         public int GetColor()
         {
-            return ColorUtils.Color32ToInt(_color);
+            return (int)ColorUtils.Color32ToInt(_color);
         }
     }
 }
