@@ -24,24 +24,33 @@ namespace CustomInspector.Extensions
             //remove underscore start
             if (name[0] == '_')
                 name = name[1..];
-            if (name == "") //contained only the underscore
+            else if (name.Length > 2 && name[..2] == "m_")
+                name = name[2..];
+            if (name == "") //contained only the prefix
                 return " "; //space so that label is still shown but only empty
 
             //first character always uppercase
             string res = char.ToUpper(name[0]).ToString();
-            //add remaining but insert space before uppercases (if previous was not underscore or upper also)
+            //add remaining but insert space before uppercases (if previous was not underscore->lowercase or next not upper also)
             for (int i = 1; i < name.Length; i++)
             {
                 if (char.IsUpper(name[i]) && i > 0)
                 {
-                    //check if space has to be added
-                    char prevChar = name[i - 1];
-                    if (prevChar != ' ' && prevChar != '_' && !char.IsUpper(prevChar))
+                    //if already a space
+                    if (res[^1] == '_' || res[^1] == ' ')
+                    {
+                        res += name[i];
+                    }
+                    //if its a new word made by casing
+                    else if ((i + 1 < name.Length && char.IsLower(name[i + 1])) //after is lowercase
+                        || char.IsLower(res[^1])) //before was lowercase
                     {
                         res += " " + name[i];
                     }
                     else
+                    {
                         res += name[i];
+                    }
                 }
                 else
                     res += name[i];

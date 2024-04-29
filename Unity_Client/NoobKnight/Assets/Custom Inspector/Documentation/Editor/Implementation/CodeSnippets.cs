@@ -885,12 +885,12 @@ namespace CustomInspector.Documentation
         [System.Serializable]
         class RichTextAttributeExamples
         {
-            [RichText] public string myRichText = "We are <color=green><b>not</b></color> sad.";
+            [RichText, Multiline(2)] public string myRichText = "Hello,\nWe are <color=green><b>not</b></color> sad.";
 
             [HorizontalLine]
 
             //setting the 'allowMultipleLines'-parameter
-            [RichText(true)]
+            [RichText, TextArea(1, 5)]
             [LabelSettings(LabelStyle.NoLabel)]
             public string myRichtText = "We are <color=green>green</color> with envy.\n\nHello <i>World</i>";
 
@@ -1639,12 +1639,6 @@ namespace CustomInspector.Documentation
                     this.name = name;
                     this.id = id;
                 }
-
-                public override string ToString()
-                {
-                    return $"{name} ({id})";
-                }
-
                 public override bool Equals(object obj)
                 {
                     if (obj is MyClass c)
@@ -1653,11 +1647,44 @@ namespace CustomInspector.Documentation
                     }
                     return false;
                 }
-
                 public override int GetHashCode()
                 {
                     return id;
                 }
+            }
+        }
+
+        [SerializeField] SerializableInterfaceExamples serializableInterfaceExamples = new SerializableInterfaceExamples();
+
+        [System.Serializable]
+        class SerializableInterfaceExamples
+        {
+            [MessageBox("A reference that is stored casted to the given interface", MessageBoxType.Info)]
+
+            [Interface]
+            public SerializableInterface<IAbc> withMyInterface1;
+
+            [HorizontalLine]
+
+            [Interface] public SerializableInterface<IAbc> withMyInterface2;
+
+            [HorizontalLine]
+
+            [MessageBox("The alternative is to store it as a monoBehaviour with a [RequireType] constraint, but it won't be casted then", MessageBoxType.Info)]
+            [RequireType(typeof(IAbc))]
+            public MonoBehaviour monoBehaviour;
+
+
+            public void Start()
+            {
+                withMyInterface1.Value?.Increment();
+
+                IAbc value2 = withMyInterface2.Value;
+                value2?.Increment();
+            }
+            public interface IAbc
+            {
+                public void Increment();
             }
         }
 
@@ -1718,12 +1745,6 @@ namespace CustomInspector.Documentation
                     this.name = name;
                     this.id = id;
                 }
-
-                public override string ToString()
-                {
-                    return $"{name} ({id})";
-                }
-
                 public override bool Equals(object obj)
                 {
                     if (obj is MyClass c)
@@ -1732,7 +1753,6 @@ namespace CustomInspector.Documentation
                     }
                     return false;
                 }
-
                 public override int GetHashCode()
                 {
                     return id;

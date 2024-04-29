@@ -1,9 +1,7 @@
 {
     "name": "CustomInspector.Helpers",
     "rootNamespace": "CustomInspector.Helpers",
-    "references": [
-        ""
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

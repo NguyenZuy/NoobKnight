@@ -66,7 +66,8 @@ namespace CustomInspector.Documentation
             "\nUseful for restricting input to valid options." },
 
             { NewPropertyD.FoldoutAttribute,
-            "Adds a foldout option to see more information on other MonoBehaviours or ScriptableObjects." },
+            "Adds a foldout option to see more information on other MonoBehaviours or ScriptableObjects." +
+            "\n\nNote: Recursive calls (unfolding a class with a reference to itself) are not displayed." },
 
             { NewPropertyD.ForceFillAttribute,
             "Indicates that a field must be filled out and can be used anywhere." +
@@ -146,7 +147,8 @@ namespace CustomInspector.Documentation
             "Anyone who masters C# will eventually get to the point that they are working with inheritance. " +
             "Since c# doesn't support multi-inheritance, there are interfaces. " +
             "Unfortunately, a field with type of interface is not shown in the inspector. " +
-            "With this attribute you can easily restrict object references to all types and they will still be displayed"},
+            "With this attribute you can easily restrict object references to all types and they will still be displayed." +
+            "\nNote: Use SerializableInterface<T> if you use it for interfaces and want the reference to be already casted."},
 
             { NewPropertyD.RichTextAttribute,
             "Display text using unitys html-style markup-format." +
@@ -298,10 +300,10 @@ namespace CustomInspector.Documentation
 
             { NewPropertyD.ListContainer,
             "Same behaviour as System.Collections.Generic.List<> but with 2 differences:" +
-            "\n1. Attributes are applied to the whole list instead of to all elements of the list." +
-            "\n2. It is serializable by JsonUtility." +
-            "\n\nNote: ListContainer and List are casting to each other implicitly, so you can still treat ListContainer as it would be of type List." +
-            "\nHint: If you want to use attributes both on the list-class and on the elements, you have to create your own class, that consists a list inside. Then you can provide attributes on the inner list and on the outer class." },
+            "\n\t1. All Attributes on it are applied to the whole list INSTEAD of to all elements of the list." +
+            "\n\t2. It is serializable by JsonUtility." +
+            "\nNote: ListContainer and List are casting to each other implicitly, so you can still treat ListContainer as it would be of type List." +
+            "\nHint: If you want to use attributes both on the list-class and on the elements, you have to create your own class, that consists a list inside. Then you can provide attributes on the inner list and on the outer class. You can add the [Unwrap]-attribute additionally on your class so you only see the list in the inspector." },
 
             { NewPropertyD.MessageDrawer,
             "If you want to write something in the inspector at runtime instead of in the console. For non-runtime messages use the MessageBoxAttribute" },
@@ -313,6 +315,11 @@ namespace CustomInspector.Documentation
             "\nThe reorder-ability is just cosmetic and has no effect in code/game." +
             "\nReorderableDictionary is derived from the System.Dictionary." +
             "\nTime complexity: access = O(log(n)), add/remove = O(n)" },
+
+
+            { NewPropertyD.SerializableInterface,
+            "A reference that has already given interface and is saved already casted." },
+
 
             { NewPropertyD.SerializableDateTime,
             "For displaying time in the unity-inspector." +
@@ -377,7 +384,9 @@ namespace CustomInspector.Documentation
             "Warning: it will only cap new inputs in the inspector: not set values by script" },
 
             { NewPropertyD.MultilineAttribute,
-            "Unity Documentation:\n" +
+            "Overrides the input-box's height. Measured in lines.\n" +
+            "Note: Text won't wrap to the input-box-width and will overflow.\n" +
+            "\nUnity Documentation:\n" +
             "\"Attribute to make a string be edited with a multi-line textfield.\"" },
 
             { NewPropertyD.NonReorderableAttribute,
@@ -403,7 +412,10 @@ namespace CustomInspector.Documentation
             "Adds a tooltip that you appears by hovering over the given field in the inspector AND in your visual studio editor." },
 
             { NewPropertyD.TextAreaAttribute,
-            "Unity Documentation:\n" +
+            "Expands the input-box's height to it's content's height. The height is constrained to min and max lines." +
+            "Text will wrap to the input-box-width and won't overflow.\n" +
+            "If content has more lines than max lines a scrollbar is added.\n" +
+            "\nUnity Documentation:\n" +
             "\"Attribute to make a string be edited with a height-flexible and scrollable text area.\n" +
             "You can specify the minimum and maximum lines for the TextArea, and the field will expand according to the size of the text. A scrollbar will appear if the text is bigger than the area available.\"" },
         };

@@ -1,5 +1,6 @@
 using CustomInspector.Extensions;
 using CustomInspector.Helpers;
+using CustomInspector.Helpers.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,10 @@ namespace CustomInspector.Editor
                 }
                 else
                 {
+                    EditorGUI.BeginChangeCheck();
                     info.gui(position, label, property);
+                    if (EditorGUI.EndChangeCheck())
+                        property.serializedObject.ApplyModifiedProperties();
                     return;
                 }
             }
@@ -83,6 +87,9 @@ namespace CustomInspector.Editor
 
             public readonly float keyWidth;
 
+            public readonly string customKeyLabel = null;
+            public readonly string customValueLabel = null;
+
             //only for nonreorderable: Remove has to happen after dict was drawn. otherwise tries to draw removed things
             public readonly List<Action> removesAfterDraw = new();
             public readonly Action<Rect, GUIContent, SerializedProperty> gui;
@@ -101,6 +108,12 @@ namespace CustomInspector.Editor
                 keyWidth = attribute?.keySize ?? DictionaryAttribute.defaultKeySize;
                 if (keyWidth <= 0)
                     Debug.LogWarning($"Dictionary on {property.serializedObject.targetObject}->{property.propertyPath}:\nKeysize is set to zero");
+
+                if (attribute != null)
+                {
+                    customKeyLabel = attribute.keyLabel;
+                    customValueLabel = attribute.valueLabel;
+                }
 
                 if (fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(SerializableDictionary<,>)
                     || fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(SerializableSortedDictionary<,>))
@@ -344,8 +357,19 @@ namespace CustomInspector.Editor
                     }
 
                     //insert headers to columns
-                    GUIContent keysHeader = new($"key: {PropertyConversions.GetIListElementType(DirtyValue.GetType(keys)).Name}");
-                    GUIContent valuesHeader = new($"value: {PropertyConversions.GetIListElementType(DirtyValue.GetType(values)).Name}");
+                    GUIContent keysHeader;
+                    GUIContent valuesHeader;
+
+                    if (info.customKeyLabel != null)
+                        keysHeader = new(info.customKeyLabel);
+                    else
+                        keysHeader = new($"key: {PropertyConversions.GetIListElementType(DirtyValue.GetType(keys)).Name}");
+
+
+                    if (info.customValueLabel != null)
+                        valuesHeader = new(info.customValueLabel);
+                    else
+                        valuesHeader = new($"value: {PropertyConversions.GetIListElementType(DirtyValue.GetType(values)).Name}");
 
                     indices.entrys = Enumerable.Repeat(new Entry(0, (position) => { }), 1)
                                             .Concat(indices.entrys);
@@ -459,33 +483,32 @@ namespace CustomInspector.Editor
             Rect ind = EditorGUI.IndentedRect(position);
             using (new NewIndentLevel(0))
             {
-                Color prev = GUI.color;
-                if (!isValid.boolValue) GUI.color = new Color(1f, .6f, .6f);
-
-                Rect r = new(ind)
+                using (new GUIColorScope(!isValid.boolValue ? new Color(1f, .6f, .6f) : GUI.color))
                 {
-                    width = ind.width * keyWidth - dividerWidth / 2f,
-                };
+                    Rect r = new(ind)
+                    {
+                        width = ind.width * keyWidth - dividerWidth / 2f,
+                    };
 
-                using (new LabelWidthScope(r.width * keyWidth))
-                {
-                    DrawProperties.PropertyFieldWithoutLabel(r, key);
+                    using (new LabelWidthScope(r.width * keyWidth))
+                    {
+                        DrawProperties.PropertyFieldWithoutLabel(r, key);
+                    }
+
+                    if (!isValid.boolValue)
+                    {
+                        //Draw warning
+                        EditorGUI.LabelField(r, GetNotValidIcon(), topRight);
+                    }
+
+                    r.x += r.width + dividerWidth;
+                    r.width = ind.width - (r.width + dividerWidth);
+
+                    using (new LabelWidthScope(r.width * keyWidth))
+                    {
+                        DrawProperties.PropertyFieldWithoutLabel(r, value);
+                    }
                 }
-
-                if (!isValid.boolValue)
-                {
-                    //Draw warning
-                    EditorGUI.LabelField(r, GetNotValidIcon(), topRight);
-                }
-
-                r.x += r.width + dividerWidth;
-                r.width = ind.width - (r.width + dividerWidth);
-
-                using (new LabelWidthScope(r.width * keyWidth))
-                {
-                    DrawProperties.PropertyFieldWithoutLabel(r, value);
-                }
-                GUI.color = prev;
             }
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -493,7 +516,7 @@ namespace CustomInspector.Editor
             SerializedProperty key = property.FindPropertyRelative("key");
             SerializedProperty value = property.FindPropertyRelative("value");
 
-            return Mathf.Max(DrawProperties.GetPropertyHeight(label, key), DrawProperties.GetPropertyHeight(label, value));
+            return Mathf.Max(DrawProperties.GetPropertyHeight(key), DrawProperties.GetPropertyHeight(value));
         }
     }
 }
