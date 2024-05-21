@@ -4,7 +4,7 @@ using CustomInspector;
 
 namespace NoobKnight.Managers.Popups
 {
-    public class BasePopup : MonoBehaviour
+    public abstract class BasePopup : MonoBehaviour
     {
         [HorizontalLine("Popup Components")]
         public bool canBack;

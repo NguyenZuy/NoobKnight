@@ -41,25 +41,26 @@ namespace NoobKnight.Managers
 
         public Sprite GetSpriteByID(int ID, Direction direction = default)
         {
+            if (ID == 0 || ID == -99)
+                return null;
+
             ItemType itemType = ConvertService.GetItemTypeByID(ID);
+            SpriteAtlas atlas = AtlasData.dictAtlases.GetValue(itemType + "Atlas");
             switch (itemType)
             {
                 case ItemType.Appearance:
                     ConfigAppearanceSciptable config = GetConfigByID<ConfigAppearanceSciptable>(ID);
                     string spriteName = $"{config.GetItemConfigAppearanceByID(ID).SpriteName}_{direction}";
-                    return AtlasData.dictAtlases.GetValue(itemType + "Atlas").GetSprite(spriteName);
+                    return atlas.GetSprite(spriteName);
                 default:
                     return null;
             }
         }
 
-        public Sprite GetSpriteUIByName(string name)
+        public Sprite GetSpriteUIByName(string spriteName)
         {
-            Sprite result = null;
-            result = AtlasData.dictAtlases.GetValue("UI_v1").GetSprite(name);
-            if (result != null)
-                return result;
-            return result;
+            SpriteAtlas atlas = AtlasData.dictAtlases.GetValue("UI_v1" + "Atlas");
+            return atlas.GetSprite(spriteName);
         }
 
         public T GetConfigByID<T>(int ID) where T : ScriptableObject

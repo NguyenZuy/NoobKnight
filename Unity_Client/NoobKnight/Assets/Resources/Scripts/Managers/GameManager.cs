@@ -9,11 +9,12 @@ namespace NoobKnight.Managers
     {
         #region Variables
         [HorizontalLine("Managers & Internal Objects")]
-        [ForceFill] public NetworkManager NetworkManager;
-        [ForceFill] public SceneManager SceneManager;
+        [ForceFill] public NetworkManager networkManager;
+        [ForceFill] public SceneManager sceneManager;
         [ForceFill] public UIManager UIManager;
-        [ForceFill] public PlayerDataManager PlayerDataManager;
-        [ForceFill] public ResourceManager ResourceManager;
+        [ForceFill] public PlayerDataManager playerDataManager;
+        [ForceFill] public ResourceManager resourceManager;
+        [ForceFill] public CharactersManager charactersManager;
 
         public GameObject[] objs;
 
@@ -30,7 +31,7 @@ namespace NoobKnight.Managers
         #region Unity Lifecycle Methods
         private void Start()
         {
-            NetworkManager.ConnectToServer();
+            networkManager.ConnectToServer();
         }
         #endregion
     }

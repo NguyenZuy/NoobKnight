@@ -11,6 +11,7 @@ namespace NoobKnight.Managers
     {
         #region Variables
         [HorizontalLine("Components")]
+        [ForceFill] public MainScreen mainScreen;
         [ForceFill] public GameObject popupsContainer;
         [ForceFill] public GameObject loadingCircle;
         [ForceFill] public GameObject messageBox;
@@ -82,6 +83,11 @@ namespace NoobKnight.Managers
                 CurrentPopup = PreviousPopup;
                 PreviousPopup = null;
             }
+        }
+
+        public T GetCurrentPopup<T>() where T : BasePopup
+        {
+            return (T) CurrentPopup;
         }
         #endregion
 

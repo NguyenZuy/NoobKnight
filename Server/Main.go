@@ -11,40 +11,6 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-const (
-	match_handler = "NoobKnight"
-
-	numberChannelPerMap = 10
-)
-
-type ConfigMap struct {
-	UID           string
-	MapName       string
-	MaxPlayers    int
-	RequiredLevel int
-}
-
-func InitConfigMaps() []*ConfigMap {
-	configMaps := make([]*ConfigMap, 0)
-
-	config1 := &ConfigMap{
-		UID:           "NV",
-		MapName:       "Newbie Village",
-		MaxPlayers:    30,
-		RequiredLevel: 1,
-	}
-	configMaps = append(configMaps, config1)
-
-	config2 := &ConfigMap{
-		UID:           "SM",
-		MapName:       "Slime Meadow",
-		MaxPlayers:    30,
-		RequiredLevel: 1,
-	}
-	configMaps = append(configMaps, config2)
-	return configMaps
-}
-
 func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, initializer runtime.Initializer) error {
 	initStart := time.Now()
 
@@ -54,12 +20,13 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 	unmarshaler := &protojson.UnmarshalOptions{
 		DiscardUnknown: false,
 	}
+
 	// ----------- Init All Configs ----------- //
 	configMaps := InitConfigMaps()
 	// --------------------------------------------//
 
 	// ----------- Register Matches ----------- //
-	if err := initializer.RegisterMatch(match_handler, func(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule) (runtime.Match, error) {
+	if err := initializer.RegisterMatch(MATCH_HANDLER, func(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule) (runtime.Match, error) {
 		return &Match{
 			marshaler:   marshaler,
 			unmarshaler: unmarshaler,
@@ -71,7 +38,7 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 
 	// ----------- Create Matches ----------- //
 	for _, configMap := range configMaps {
-		for i := 0; i < numberChannelPerMap; i++ {
+		for i := 0; i < NUMBER_CHANNEL_PER_MAP; i++ {
 			properties := map[string]interface{}{
 				"UID":           configMap.UID + strconv.Itoa(i),
 				"MapName":       configMap.MapName,
@@ -79,7 +46,7 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 				"MaxPlayers":    configMap.MaxPlayers,
 				"RequiredLevel": configMap.RequiredLevel,
 			}
-			matchID, err := nk.MatchCreate(ctx, match_handler, properties)
+			matchID, err := nk.MatchCreate(ctx, MATCH_HANDLER, properties)
 			if err != nil {
 				logger.Error("Failed to create match: %v", err)
 				return err
@@ -89,6 +56,21 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 	}
 	// --------------------------------------------//
 
-	logger.Info("Plugin loaded in '%d' msec.", time.Now().Sub(initStart).Milliseconds())
+	// ----------- Register Before Hook ----------- //
+	// --------------------------------------------//
+
+	// ----------- Register After Hook ----------- //
+	if err := initializer.RegisterAfterAuthenticateEmail(InitializeUser); err != nil {
+		return err
+	}
+	// --------------------------------------------//
+
+	// ----------- Register RPCs ----------- //
+	if err := initializer.RegisterRpc(UPDATE_USER_METADATA, UpdateUserMetadata); err != nil {
+		return err
+	}
+	// --------------------------------------------//
+
+	logger.Info("Plugin loaded in '%d' msec.", time.Since(initStart).Milliseconds())
 	return nil
 }

@@ -29,8 +29,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - Configs
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 283b5556590d51948bf9dbdd10323a8b
-    m_Address: Assets/Resources_moved/Atlas/UI_v1.spriteatlasv2
+  - m_GUID: 889753ad85fad8d4db29761e42e53462
+    m_Address: Atlas/UI_v1Atlas
     m_ReadOnly: 0
     m_SerializedLabels:
     - Atlases

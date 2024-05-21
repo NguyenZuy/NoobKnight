@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imgIcon: {fileID: 8268922499204698592}
+  index: 0
   ID: 0
 --- !u!1 &2090312529939666974
 GameObject:

@@ -8,7 +8,7 @@ namespace NoobKnight.Managers.Nakama
 {
     public class ServerHandler
     {
-        public static readonly NetworkManager NetworkManager = GameManager.Instance.NetworkManager;
+        public static readonly NetworkManager NetworkManager = GameManager.Instance.networkManager;
 
         public async Task<IApiAccount> AuthenticateDeviceId()
         {

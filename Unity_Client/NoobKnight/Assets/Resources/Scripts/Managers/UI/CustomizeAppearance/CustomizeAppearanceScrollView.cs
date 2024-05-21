@@ -4,7 +4,7 @@ using CustomInspector;
 
 namespace NoobKnight.Managers
 {
-    public class CustomizeAppearanceScrollView : BaseSuperScrollView<int>
+    public class CustomizeAppearanceScrollView : BaseSuperScrollView<int, AppearanceSubtype, ItemCustomizeAppearance>
     {
         #region Variables
 
@@ -14,7 +14,7 @@ namespace NoobKnight.Managers
         public override void SetCell(GameObject cell, int index)
         {
             var item = cell.GetComponent<ItemCustomizeAppearance>();
-            item.BindData(m_datas[index], m_onClickCallback);
+            item.BindData(index, m_datas[index], m_subType, m_onClickCallback);
         }
         #endregion
     }

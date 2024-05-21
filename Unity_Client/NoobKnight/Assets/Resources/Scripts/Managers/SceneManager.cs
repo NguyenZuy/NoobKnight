@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 namespace NoobKnight.Managers
 {
-    public interface ISceneChange
-    {
-        void OnSceneChanged();
-    }
-
     public class SceneManager : MonoBehaviour
     {
-        public static void ChangeScene(SceneNames sceneName, UnityAction<UnityEngine.SceneManagement.Scene, LoadSceneMode> sceneLoadedCallback = null)
+        #region Variables
+        public int curGateID; // Convention 0 is default
+        #endregion
+
+        #region Common Methods
+        public void ChangeScene(SceneNames sceneName, UnityAction<UnityEngine.SceneManagement.Scene, LoadSceneMode> sceneLoadedCallback = null)
         {
             if (sceneLoadedCallback != null)
             {
@@ -24,5 +24,6 @@ namespace NoobKnight.Managers
             }
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName.ToString());
         }
+        #endregion
     }
 }

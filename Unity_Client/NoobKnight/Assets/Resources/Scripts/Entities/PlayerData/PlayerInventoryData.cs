@@ -1,21 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace NoobKnight.Entities
 {
-    public class PlayerInventoryData : MonoBehaviour
+    [Serializable]
+    public class PlayerInventoryData
     {
-        public class AppearanceData
+        #region Variables
+        public AppearanceInventoryData appearanceInventoryData = new AppearanceInventoryData();
+        #endregion
+
+        [Serializable]
+        public class AppearanceInventoryData
         {
-            public int[] HeadIDs;
-            public int[] HairIDs;
-            public int[] MakeupIDs;
-            public int[] EarIDs;
-            public int[] EyesIDs;
-            public int[] EyeBrowsIDs;
-            public int[] MouthIDs;
-            public int[] BeardIDs;
+            public int[] headIDs;
+            public int[] hairIDs;
+            public int[] makeupIDs;
+            public int[] earIDs;
+            public int[] eyesIDs;
+            public int[] eyeBrowsIDs;
+            public int[] mouthIDs;
+            public int[] beardIDs;
         }
     }
 }

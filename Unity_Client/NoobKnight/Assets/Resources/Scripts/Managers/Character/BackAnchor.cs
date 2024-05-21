@@ -2,9 +2,9 @@ using CustomInspector;
 using NoobKnight.Utils;
 using UnityEngine;
 
-namespace NoobKnight.Managers
+namespace NoobKnight.Managers.Character
 {
-    public class BackAnchor : MonoBehaviour
+    public class BackAnchor : MonoBehaviour, IAnchor
     {
         #region Variables
         [HorizontalLine("Upper Body Components", 5f)]
@@ -57,12 +57,12 @@ namespace NoobKnight.Managers
         [ForceFill] public SpriteRenderer legRArmor;
         #endregion
 
-        public void OnChangeAppearance(int ID, AppearanceTypeForCustomize typeForCustomize)
+        public void OnChangeAppearance(int ID, AppearanceSubtype typeForCustomize)
         {
             var color = ColorUtils.IntToColor32(ID);
             switch (typeForCustomize)
             {
-                case AppearanceTypeForCustomize.Skin_Color:
+                case AppearanceSubtype.Skin_Color:
                     body.color = color;
                     head.color = color;
                     earL.color = color;
@@ -74,21 +74,21 @@ namespace NoobKnight.Managers
                     legL.color = color;
                     legR.color = color;
                     break;
-                case AppearanceTypeForCustomize.Hair_Color:
+                case AppearanceSubtype.Hair_Color:
                     hair.color = color;
                     break;
-                case AppearanceTypeForCustomize.Head:
-                    head.sprite = GameManager.Instance.ResourceManager.GetSpriteByID(ID, Direction.Back);
+                case AppearanceSubtype.Head:
+                    head.sprite = GameManager.Instance.resourceManager.GetSpriteByID(ID, Direction.Back);
                     break;
-                case AppearanceTypeForCustomize.Hair:
-                    hair.sprite = GameManager.Instance.ResourceManager.GetSpriteByID(ID, Direction.Back);
+                case AppearanceSubtype.Hair:
+                    hair.sprite = GameManager.Instance.resourceManager.GetSpriteByID(ID, Direction.Back);
                     break;
-                case AppearanceTypeForCustomize.Makeup:
-                    makeup.sprite = GameManager.Instance.ResourceManager.GetSpriteByID(ID, Direction.Back);
+                case AppearanceSubtype.Makeup:
+                    makeup.sprite = GameManager.Instance.resourceManager.GetSpriteByID(ID, Direction.Back);
                     break;
-                case AppearanceTypeForCustomize.Ear:
-                    earL.sprite = GameManager.Instance.ResourceManager.GetSpriteByID(ID, Direction.Back);
-                    earR.sprite = GameManager.Instance.ResourceManager.GetSpriteByID(ID, Direction.Back);
+                case AppearanceSubtype.Ear:
+                    earL.sprite = GameManager.Instance.resourceManager.GetSpriteByID(ID, Direction.Back);
+                    earR.sprite = GameManager.Instance.resourceManager.GetSpriteByID(ID, Direction.Back);
                     break;
                 default:
                     break;

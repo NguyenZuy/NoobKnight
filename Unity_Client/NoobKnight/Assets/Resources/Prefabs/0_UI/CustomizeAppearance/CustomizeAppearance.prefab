@@ -480,8 +480,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3684885386646880740}
   - {fileID: 1579554850961869338}
+  - {fileID: 3684885386646880740}
   - {fileID: 5067484779796351018}
   - {fileID: 7376205397116137392}
   - {fileID: 1901588985018193629}
@@ -2636,6 +2636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   superScollRect: {fileID: 7653205973173937284}
+  isDoAwake: 0
 --- !u!1 &3722616399275237960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3351,7 +3352,7 @@ GameObject:
   - component: {fileID: 5843272358360276652}
   - component: {fileID: 908286528581357773}
   m_Layer: 5
-  m_Name: Btn_Eye
+  m_Name: Btn_Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3933,7 +3934,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6039874092798365860}
   - component: {fileID: 3966644124063460461}
-  - component: {fileID: 4764671930633796752}
   m_Layer: 5
   m_Name: Items
   m_TagString: Untagged
@@ -3970,19 +3970,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5424459333070405960}
   m_CullTransparentMesh: 1
---- !u!114 &4764671930633796752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5424459333070405960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c435c62fbe60fe94983fa896b9e48011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  superScollRect: {fileID: 7653205973173937284}
 --- !u!1 &5581761692730964226
 GameObject:
   m_ObjectHideFlags: 0
@@ -4662,7 +4649,7 @@ GameObject:
   - component: {fileID: 1638448356743782072}
   - component: {fileID: 443333988178839036}
   m_Layer: 5
-  m_Name: ItemColor_Default
+  m_Name: ItemColor_Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4994,6 +4981,21 @@ MonoBehaviour:
   itemsPanel: {fileID: 5424459333070405960}
   colorsPanel: {fileID: 8801671556176881785}
   customizeAppearanceScrollView: {fileID: 6491733816477922582}
+  btn_SkinColor: {fileID: 8546116421704913900}
+  btn_Head: {fileID: 5346506834065576325}
+  btn_Hair: {fileID: 7208032486031804650}
+  btn_HairColor: {fileID: 267816527980549925}
+  btn_Makeup: {fileID: 5513512923045310886}
+  btn_Ear: {fileID: 2602308317457862115}
+  btn_Eyes: {fileID: 5843272358360276652}
+  btn_EyeColor: {fileID: 8708319971124858346}
+  btn_Eyebrows: {fileID: 6482126809685710714}
+  btn_Mouth: {fileID: 7395117142480242203}
+  btn_Beard: {fileID: 4204696733737516806}
+  btn_GenderMale: {fileID: 6164202745072051577}
+  btn_GenderFemale: {fileID: 4664679119471168168}
+  curItemColor: {fileID: 0}
+  curItemCustomizeAppearance: {fileID: 0}
 --- !u!1 &8123206399704362465
 GameObject:
   m_ObjectHideFlags: 0
@@ -5189,7 +5191,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8240872377935259799}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7468160586246863205}
+        m_TargetAssemblyTypeName: NoobKnight.Managers.CustomizeAppearance, NoobKnight.Managers
+        m_MethodName: OnClickGender
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Female
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8244920250610302241
 GameObject:
   m_ObjectHideFlags: 0
@@ -5460,7 +5474,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4918817476880955102}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7468160586246863205}
+        m_TargetAssemblyTypeName: NoobKnight.Managers.CustomizeAppearance, NoobKnight.Managers
+        m_MethodName: OnClickGender
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Male
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8767050764431144784
 GameObject:
   m_ObjectHideFlags: 0

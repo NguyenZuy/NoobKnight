@@ -982,6 +982,8 @@ GameObject:
   - component: {fileID: 6955973834185869242}
   - component: {fileID: 7701608903426951017}
   - component: {fileID: 232424229473765648}
+  - component: {fileID: 2539430906187982245}
+  - component: {fileID: 4665823328924424891}
   m_Layer: 5
   m_Name: MessageBox
   m_TagString: Untagged
@@ -1021,11 +1023,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c4e657ac670d444843ae561696c9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBack: 0
   txt_Title: {fileID: 7795280158391091563}
   txt_Content: {fileID: 71174110544459180}
   btn_Ok: {fileID: 1395268665193459770}
   btn_Yes: {fileID: 8094302267936919948}
   btn_No: {fileID: 8606501430755764300}
+  btn_Cancel: {fileID: 7392365417274543516}
 --- !u!225 &232424229473765648
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1034,10 +1038,50 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5951124166739436958}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!223 &2539430906187982245
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951124166739436958}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: -1566308927
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &4665823328924424891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951124166739436958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &6509986546027585751
 GameObject:
   m_ObjectHideFlags: 0

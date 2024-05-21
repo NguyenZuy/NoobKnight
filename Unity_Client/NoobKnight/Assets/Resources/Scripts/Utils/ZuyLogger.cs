@@ -6,17 +6,64 @@ namespace NoobKnight.Utils
 {
     public static class ZuyLogger
     {
-        public static void Log(string prefix, string message)
+        private static bool _isUseDebug = true;
+
+        private static Dictionary<LogType, LogColor> _logColorMap = new Dictionary<LogType, LogColor>()
         {
-            Debug.LogFormat("{0}{1}", prefix, message);
+            {LogType.Nakama, LogColor.yellow },
+            {LogType.Authentication, LogColor.blue },
+        };
+
+        public static void Log(LogType qLogType, string message)
+        {
+            if (!_isUseDebug)
+                return;
+
+            if (_logColorMap.TryGetValue(qLogType, out LogColor logColor))
+            {
+                Debug.Log($"<color={logColor}><b>[{qLogType}]</b>: </color>{message}");
+            }
         }
-        public static void LogWarning(string prefix, string message)
+
+        public static void LogWarning(LogType qLogType, string message)
         {
-            Debug.LogWarningFormat("{0}{1}", prefix, message);
+            if (!_isUseDebug)
+                return;
+
+            if (_logColorMap.TryGetValue(qLogType, out LogColor logColor))
+            {
+                Debug.LogWarning($"<color={logColor}><b>[{qLogType}]</b>: </color>{message}");
+            }
         }
-        public static void LogError(string prefix, string message)
+
+        public static void LogError(LogType qLogType, string message)
         {
-            Debug.LogErrorFormat("{0}{1}", prefix, message);
+            if (!_isUseDebug)
+                return;
+
+            if (_logColorMap.TryGetValue(qLogType, out LogColor logColor))
+            {
+                Debug.LogError($"<color={logColor}><b>[{qLogType}]</b>: </color>{message}");
+            }
+        }
+
+        public enum LogType
+        {
+            Nakama,
+            Authentication,
+        }
+
+        public enum LogColor
+        {
+            white,
+            red,
+            blue,
+            green,
+            yellow,
+            cyan,
+            magenta,
+            pink,
+            purple
         }
     }
 }

@@ -13,6 +13,7 @@ namespace NoobKnight.Utils
         IntroPopup = 0,
         AuthenticatePopup = 1,
         CreateCharacterPopup = 2,
+        StatsPopup = 3
     }
 
     public enum Direction
@@ -21,6 +22,7 @@ namespace NoobKnight.Utils
         Front = 1,
         Back = 2,
         Left = 3,
+        Right = 4
     }
 
     public enum ItemType
@@ -37,7 +39,7 @@ namespace NoobKnight.Utils
     }
 
     [Serializable]
-    public enum AppearanceTypeForCustomize
+    public enum AppearanceSubtype
     {
         Skin_Color = 0,
         Eye_Color = 1,
@@ -51,18 +53,5 @@ namespace NoobKnight.Utils
         Eyebrows = 8,
         Mouth = 9,
         Beard = 10,
-    }
-
-    public enum AppearanceSubType
-    {
-        None = 0,
-        Head = 1,
-        Hair = 2,
-        Makeup = 3,
-        Ear = 4,
-        Eyes = 5,
-        Eyebrows = 6,
-        Mouth = 7,
-        Beard = 8,
     }
 }

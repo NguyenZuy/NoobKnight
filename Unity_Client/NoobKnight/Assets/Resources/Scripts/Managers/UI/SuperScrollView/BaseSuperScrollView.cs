@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace NoobKnight.Managers
 {
-    public abstract class BaseSuperScrollView<T> : MonoBehaviour, ISuperScrollRectDataProvider
+    public abstract class BaseSuperScrollView<T, T1, T2> : MonoBehaviour, ISuperScrollRectDataProvider
     {
         #region Variables
         [HorizontalLine("Components")]
@@ -17,15 +17,17 @@ namespace NoobKnight.Managers
         [HideInInspector] public bool isDoAwake;
 
         protected T[] m_datas;
-        protected UnityAction<T> m_onClickCallback;
+        protected T1 m_subType;
+        protected UnityAction<T2> m_onClickCallback;
         #endregion
 
         #region Super Scroll View Methods
         public abstract void SetCell(GameObject cell, int index);
 
-        public void SetupData(T[] datas, UnityAction<T> onClickCallback)
+        public void SetupData(T[] datas, T1 subType, UnityAction<T2> onClickCallback)
         {
             m_datas = datas;
+            m_subType = subType;
             m_onClickCallback = onClickCallback;
         }
 

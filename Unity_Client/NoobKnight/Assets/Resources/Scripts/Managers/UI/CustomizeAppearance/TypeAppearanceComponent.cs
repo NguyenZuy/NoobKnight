@@ -5,6 +5,6 @@ namespace NoobKnight.Managers
 {
     public class TypeAppearanceComponent : MonoBehaviour
     {
-        public AppearanceTypeForCustomize typeAppearance;
+        public AppearanceSubtype typeAppearance;
     }
 }
